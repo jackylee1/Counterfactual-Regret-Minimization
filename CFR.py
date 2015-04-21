@@ -6,30 +6,26 @@ Created on Tue Apr 21 08:28:40 2015
 """
 import random
 
-ROCK = 0
-PAPER = 1
-SCISSORS = 2
 actions = ["Rock","Paper","Scissors"]
 NUMACTIONS = 3
 
-class cfr_RPC:
+# Regret Matching for Rock-Paper-Scissors
+class RegretMatching_RPC:
     def __init__(self,iterations):
         self.iterations = iterations
         self.regretSum = [0]*NUMACTIONS
         self.strategy = [0]*NUMACTIONS
         self.strategySum = [0]*NUMACTIONS
-        self.oppStrategy = [.333, .333, .333]
+        self.oppStrategy = [.4, .3, .3]
         self.avgStrategy = [0]*NUMACTIONS
     
     def getStrategy(self):
-        normalizingSum = 0
         for a in range(NUMACTIONS):
             if self.regretSum[a] > 0:
                 self.strategy[a] = self.regretSum[a]
-                normalizingSum+= self.strategy[a]
             else:
                 self.strategy[a] = 0
-        #normalizingSum += sum(self.strategy)
+        normalizingSum = sum(self.strategy)
         for a in range(NUMACTIONS):
             if normalizingSum > 0:
                 self.strategy[a] /= float(normalizingSum)
@@ -40,13 +36,12 @@ class cfr_RPC:
     def getAction(self,strategy):
         r = random.random()
         a = 0
-        cumulativeProbability = 0
-        while a < (NUMACTIONS-1):
-            cumulativeProbability += self.strategy[a]
+        cumulativeProbability = 0.0
+        while a < (NUMACTIONS):
+            cumulativeProbability += strategy[a]
             if r < cumulativeProbability:
-                break
+                return a
             a+=1
-        return a
         
     def train(self):
         actionUtility = [0]*3
@@ -84,6 +79,6 @@ class cfr_RPC:
             
             
     
-x = cfr_RPC(100000)
+x = RegretMatching_RPC(10000000)
 x.train()
 x.getAverageStrategy()

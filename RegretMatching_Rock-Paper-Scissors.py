@@ -74,11 +74,21 @@ class RegretMatching_RPC:
             else:
                 self.avgStrategy[a] = 1.0 / NUMACTIONS
         for a in range(NUMACTIONS):
-            print actions[a], ":", self.avgStrategy[a] / self.iterations
+            self.avgStrategy[a] /= self.iterations
+            print actions[a], ":", self.avgStrategy[a]
+            
+    def Expected_Utility(self,p1,p2):
+        utilities = [[0,-1,1],[1,0,-1],[-1,1,0]]
+        total = 0
+        for i in range(len(p1)):
+            for j in range(len(p2)):
+                total += p1[i]*p2[j]*utilities[i][j]
+        print "Expected Utility for Player: ", total
         
             
             
     
-x = RegretMatching_RPC(10000000)
+x = RegretMatching_RPC(10000)
 x.train()
 x.getAverageStrategy()
+x.Expected_Utility(x.avgStrategy,x.oppStrategy)

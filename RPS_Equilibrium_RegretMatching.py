@@ -72,11 +72,10 @@ class RegretMatching_RPC:
         normalizingSum = sum(player.strategy)
         for a in range(NUMACTIONS):
             if normalizingSum > 0:
-                player.avgStrategy[a] = player.strategySum[a] / float(normalizingSum)
+                player.avgStrategy[a] = player.strategySum[a] / float(normalizingSum) / self.iterations
             else:
                 player.avgStrategy[a] = 1.0 / NUMACTIONS
         for a in range(NUMACTIONS):
-            player.avgStrategy[a] /= self.iterations
             print actions[a], ":", player.avgStrategy[a]
             
     def Expected_Utility(self,p1,p2):

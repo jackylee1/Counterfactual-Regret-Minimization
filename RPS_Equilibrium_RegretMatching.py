@@ -4,7 +4,8 @@ Created on Sat Apr 25 09:16:09 2015
 
 @author: russelljadams
 
-Rock-Paper-Scissors Regret Matching for Two players. Solves the Mixed Strategy Nash Equilibrium of the game.
+Rock-Paper-Scissors Regret Matching for Two players. Solves the Mixed Strategy Nash Equilibrium of the game. Updating each players
+strategy with each iteration.
 """
 
 
